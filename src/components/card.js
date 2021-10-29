@@ -1,3 +1,4 @@
+
 const Card = (article) => {
   // TASK 5
   // ---------------------
@@ -16,8 +17,46 @@ const Card = (article) => {
   //     <span>By { authorName }</span>
   //   </div>
   // </div>
-  //
+
+  //Create elements
+  const cardDiv = document.createElement('div');
+  const headlineDiv = document.createElement('div');
+  const authorDiv = document.createElement('div');
+  const imgContDiv = document.createElement('div');
+  const authorImage = document.createElement('img');
+  const authorSpan = document.createElement('span');
+
+  //Create hierarchy
+  cardDiv.appendChild(headlineDiv);
+  cardDiv.appendChild(authorDiv);
+    authorDiv.appendChild(imgContDiv);
+      imgContDiv.appendChild(authorImage);
+    authorDiv.appendChild(authorSpan);
+
+    //Add content
+    headlineDiv.textContent = article.headline;
+    authorImage.src = article.authorPhoto;
+    authorSpan.textContent = article.authorName;
+
+    //Add classs
+  cardDiv.classList.add('card');
+  headlineDiv.classList.add('headline');
+  authorDiv.classList.add('author');
+  imgContDiv.classList.add('img-container');
+  
+  //Return main div
+  return cardDiv;
+
 }
+
+//Test
+const testArt = {
+  headline: 'Hello',
+  authorPhoto: 'https://vetmed.tamu.edu/news/wp-content/uploads/sites/9/2020/09/Llama-and-Alpaca-Pet-Talk.jpg',
+  authorName: 'Bruh'
+}
+const cardEntry = document.querySelector('.cards-container');
+cardEntry.appendChild(Card(testArt));
 
 const cardAppender = (selector) => {
   // TASK 6
