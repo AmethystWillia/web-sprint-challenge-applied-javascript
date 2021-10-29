@@ -17,39 +17,23 @@ const Tabs = (topics) => {
   
   //Create elements
   const topicsDiv = document.createElement('div');
-  const tab0Div = document.createElement('div');
-  const tab1Div = document.createElement('div');
-  const tab2Div = document.createElement('div');
-  const tab3Div = document.createElement('div');
-  const tab4Div = document.createElement('div');
 
-  //Create hierarchy
-  topicsDiv.appendChild(tab0Div);
-  topicsDiv.appendChild(tab1Div);
-  topicsDiv.appendChild(tab2Div);
-  topicsDiv.appendChild(tab3Div);
-  topicsDiv.appendChild(tab4Div);
-
-  //Add content
-  tab0Div.textContent = topics[0];
-  tab1Div.textContent = topics[1];
-  tab2Div.textContent = topics[2];
-  tab3Div.textContent = topics[3];
-  tab4Div.textContent = topics[4];
+  //Trying a new approach
+  //HELL YEAH loops through the length of array passed into Tabs and create div/append/add content/add class for each value
+  for (let i = 0; i < topics.length; i++) {
+    const tabDiv = document.createElement('div');
+    topicsDiv.appendChild(tabDiv);
+    tabDiv.textContent = topics[i];
+    tabDiv.classList.add('tab')
+  }
 
   //Adding classes
   topicsDiv.classList.add('topics')
-  tab0Div.classList.add('tab');
-  tab1Div.classList.add('tab');
-  tab2Div.classList.add('tab');
-  tab3Div.classList.add('tab');
-  tab4Div.classList.add('tab');
 
   //Return main div
   return topicsDiv;
 
 }
-
 
 const tabsAppender = (selector) => {
   // TASK 4
@@ -66,10 +50,10 @@ const tabsAppender = (selector) => {
   axios.get(`http://localhost:5000/api/topics`)
     .then(res => {
       //Take array and slap it into the Tabs function
-      const tabsArray = Tabs(res.data.topics);
-
-      //Append tabsArray to tabsDiv
-      tabsDiv.appendChild(tabsArray);
+      const topicsArray = Tabs(res.data.topics);
+      
+      //Append topicbsArray to tabsDiv
+      tabsDiv.appendChild(topicsArray);
 
     })
     .catch(err => {
