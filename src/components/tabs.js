@@ -62,6 +62,7 @@ const tabsAppender = (selector) => {
   //Set constant for the div everything will be slapped into
   const tabsDiv = document.querySelector(selector)
 
+  //Acquire data from API
   axios.get(`http://localhost:5000/api/topics`)
     .then(res => {
       //Take array and slap it into the Tabs function

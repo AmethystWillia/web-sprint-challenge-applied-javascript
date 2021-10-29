@@ -1,4 +1,6 @@
 
+import axios from 'axios';
+
 const Card = (article) => {
   // TASK 5
   // ---------------------
@@ -49,14 +51,6 @@ const Card = (article) => {
 
 }
 
-//Test
-const testArt = {
-  headline: 'Hello',
-  authorPhoto: 'https://vetmed.tamu.edu/news/wp-content/uploads/sites/9/2020/09/Llama-and-Alpaca-Pet-Talk.jpg',
-  authorName: 'Bruh'
-}
-const cardEntry = document.querySelector('.cards-container');
-cardEntry.appendChild(Card(testArt));
 
 const cardAppender = (selector) => {
   // TASK 6
@@ -66,7 +60,42 @@ const cardAppender = (selector) => {
   // However, the articles do not come organized in a single, neat array. Inspect the response closely!
   // Create a card from each and every article object in the response, using the Card component.
   // Append each card to the element in the DOM that matches the selector passed to the function.
-  //
+
+  //Create entry point for data
+  const cardEntry = document.querySelector(selector);
+
+  //Acquire data from API
+  axios.get(`http://localhost:5000/api/articles`)
+    .then(res => {
+      
+      //Create array of just the values of res.data.articles
+      const articlesArray = Object.values(res.data.articles);
+      
+      //Loop over the length of the newly made array and make ANOTHER array of just the values of the first array
+      for (let i = 0; i < articlesArray.length; i++) {
+        const nestedArray = articlesArray[i];
+
+        //Loop over the newest array and create an object from its data
+        for (let i = 0; i < nestedArray.length; i++) {
+          
+          const articleObj = {
+            headline: nestedArray[i].headline,
+            authorPhoto: nestedArray[i].authorPhoto,
+            authorName: nestedArray[i].authorName
+          }
+          
+          //Pass articleObj into Card function and append that to the DOM
+          const newCard = Card(articleObj);
+          cardEntry.appendChild(newCard);
+        }
+      }
+      
+    })
+    .catch(err => {
+      console.error(err);
+    })
+
+
 }
 
 export { Card, cardAppender }
