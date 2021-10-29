@@ -1,3 +1,5 @@
+import { typeParameterDeclaration } from "@babel/types";
+
 const Header = (title, date, temp) => {
   // TASK 1
   // ---------------------
@@ -10,7 +12,31 @@ const Header = (title, date, temp) => {
   //    <h1>{ title }</h1>
   //    <span class="temp">{ temp }</span>
   //  </div>
-  //
+  
+  //Create elements
+  const headerDiv = document.createElement('div');
+  const dateSpan = docuement.createElement('span');
+  const titleH1 = document.createElement('h1');
+  const tempSpan = document.createElement('span');
+
+  //Create Hierarchy
+  headerDiv.appendChild(dateSpan);
+  headerDiv.appendChild(titleH1);
+  headerDiv.appendChild(tempSpan);
+
+  //Adding content
+  dateSpan.textContent = date;
+  titleH1.textContent = title;
+  tempSpan.textContent = temp;
+
+  //Adding classes
+  headerDiv.classList.add('header');
+  dateSpan.classList.add('data');
+  tempSpan.classList.add('temp');
+
+  //Return data
+  return headerDiv;
+
 }
 
 const headerAppender = (selector) => {
